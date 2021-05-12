@@ -86,12 +86,20 @@ class ChatWindow extends Component {
             [evt.target.name]: evt.target.value
         })
     }
+
+    handleEnterPress = (e) => {
+        if (e.keyCode === 13 && e.shiftKey === false) {
+            e.preventDefault();
+            this.handleSubmit(e);
+        }
+    }
+    
     render() { 
         return ( 
             <div className="chat-container">
                 <div className="chat-messages">{this.printing()}</div>               
                 <form onSubmit={this.handleSubmit}>
-                    <textarea name="message" value={this.state.message} onChange={this.handleText}/>
+                    <textarea name="message" value={this.state.message} onChange={this.handleText} onKeyDown={this.handleEnterPress}/>
                     <button>&#10148;</button>
                 </form>
             </div>

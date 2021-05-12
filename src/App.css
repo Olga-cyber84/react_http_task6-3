@@ -87,7 +87,7 @@ textarea::-webkit-scrollbar {
 }
 
 .chat-my-message {
-  background-color: aliceblue;
+  background-color: #d2e2ef;
   position: relative;
   right: -150px;
 }
