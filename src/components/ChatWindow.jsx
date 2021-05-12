@@ -50,27 +50,28 @@ class ChatWindow extends Component {
             const gettingMessage = () => fetch(url, {})
                 .then(response => response.json())
                 .then(allMessages => {
-                    this._isMounted && this.setState({
-                        allMessages: allMessages,
-                        id: allMessages.length > 0 ? allMessages[allMessages.length-1].id : 0
-                    })
+                    this._isMounted && this.setState(state => {
+                    return allMessages.length > 0 && allMessages[allMessages.length-1].id !== state.id &&   
+                     {
+                        allMessages: [...state.allMessages, ...allMessages],
+                        id: allMessages[allMessages.length-1].id
+                    }}
+                    )
                 });
             url = process.env.REACT_APP_CURRENCY_URL + "?from=" + this.state.id;
             gettingMessage()
             this.windowScrolling()
-            console.log(url)
-        },5000)
+        }, 500)
 
         this.timeout = setTimeout(() => {
             this.printing()
-        }, 9000)
+        }, 700)
     }
     componentWillUnmount = () => {
         clearInterval(this.interval);
         clearInterval(this.timeout)
     }
     printing = () => {
-        
         return this.state.allMessages.map(message => 
             <div
                 key={message.id}
